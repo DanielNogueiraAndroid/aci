@@ -1,9 +1,19 @@
 <resources>
     <string name="app_name">Movie</string>
-    <string name="empty_wishlist">Empty!</string>
-    <string name="removed_from_wishlist">Removed!</string>
-    <string name="undo_remove">Undo</string>
-    <string name="movie_poster">movie_poster</string>
+    <string name="movie_poster">movie poster</string>
     <string name="generic_error">Sorry please repeat operation</string>
-    <string name="loading_details">"Bringing details of "</string>
+    <string name="loading_details">Bringing details of&#160;</string>
+    <string name="title_detail">Title:&#160;</string>
+    <string name="released_detail">Released:&#160;</string>
+    <string name="runtime_detail">Runtime:&#160;</string>
+    <string name="genre_detail">Genre:&#160;</string>
+    <string name="director_detail">Director:&#160;</string>
+    <string name="writer_detail">Writer:&#160;</string>
+    <string name="actors_detail">Actors:&#160;</string>
+    <string name="plot_detail">Plot:&#160;</string>
+    <string name="language_detail">Language:&#160;</string>
+    <string name="country_detail">Country:&#160;</string>
+    <string name="awards_detail">Awards:&#160;</string>
+    <string name="connection_error">Connection error</string>
+    <string name="movie_title">Movie Title</string>
 </resources>

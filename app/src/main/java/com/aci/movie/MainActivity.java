@@ -3,7 +3,6 @@ package com.aci.movie;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.view.View;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.Toast;
@@ -12,7 +11,6 @@ import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbSearchMovies;
 import com.aci.movie.rxbinding.RxListPopupWindow;
 import com.aci.movie.service.MovieService;
-import com.aci.movie.ui.MoviesRecycler;
 import com.aci.movie.util.RxLog;
 import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -40,11 +38,6 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.searchText)
     EditText searchText;
 
-    @Bind(R.id.movies_list)
-    MoviesRecycler moviesRecycler;
-
-    @Bind(R.id.empty_recycler)
-    View emptyRecyclerView;
     ListPopupWindow popup;
 
     private MoviePopupAdapter adapter;
@@ -66,25 +59,25 @@ public class MainActivity extends BaseActivity {
                 .map(adapter::getItem)
                 .onBackpressureDrop(item -> RxLog.log("drop", item))
                 .subscribe(new Subscriber<OmdbMovie>() {
-            @Override
-            public void onCompleted() {
+                    @Override
+                    public void onCompleted() {
 
-            }
+                    }
 
-            @Override
-            public void onError(Throwable e) {
-                toast(getString(R.string.generic_error));
-            }
+                    @Override
+                    public void onError(Throwable e) {
+                        toast(getString(R.string.generic_error));
+                    }
 
-            @Override
-            public void onNext(OmdbMovie omdbMovie) {
-                logger.debug("onNext omdbMovie");
-                if(omdbMovie != null){
-                    toast(getString(R.string.loading_details)+ omdbMovie.getTitle());
-                    callDetailActivity(omdbMovie.getImdbId());
-                }
-            }
-        });
+                    @Override
+                    public void onNext(OmdbMovie omdbMovie) {
+                        logger.debug("onNext omdbMovie");
+                        if (omdbMovie != null) {
+                            //toast(getString(R.string.loading_details) + omdbMovie.getTitle());
+                            callDetailActivity(omdbMovie.getImdbId());
+                        }
+                    }
+                });
 
     }
 
@@ -97,7 +90,7 @@ public class MainActivity extends BaseActivity {
     private void callDetailActivity(String id) {
 
         Intent intentMovieDetail = new Intent(this, MovieDetailActivity.class);
-        intentMovieDetail.putExtra(EXTRA_ID,id);
+        intentMovieDetail.putExtra(EXTRA_ID, id);
         startActivity(intentMovieDetail);
     }
 
@@ -127,11 +120,12 @@ public class MainActivity extends BaseActivity {
     }
 
     void setMovies(OmdbSearchMovies movies) {
-        if(popup == null) return;
+        if (popup == null) return;
         if (movies.errorMessage == null) {
-            if(adapter != null){
-            adapter.setMovieList(movies.movies);
-            popup.show();}
+            if (adapter != null) {
+                adapter.setMovieList(movies.movies);
+                popup.show();
+            }
         } else {
             popup.dismiss();
             Snackbar.make(searchText, movies.errorMessage, Snackbar.LENGTH_LONG).show();

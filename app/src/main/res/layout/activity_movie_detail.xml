@@ -6,88 +6,249 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:padding="16dp">
 
-        <ImageView
-            android:id="@+id/poster"
-            android:layout_width="75dp"
-            android:layout_height="117dp"
-            android:layout_alignParentStart="true"
-            android:layout_marginEnd="6dp"
-            android:adjustViewBounds="true"
-            android:contentDescription="@string/movie_poster"
-            android:scaleType="centerCrop"
-            />
+        >
+    <ProgressBar
+        android:id="@+id/proggres_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        />
 
-        <TextView
-            android:id="@+id/title"
+    <ScrollView
+        android:id="@+id/scroll_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+       >
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/poster"
-            android:textStyle="bold"/>
+            android:orientation="vertical"
+            android:padding="16dp"
+            >
 
-        <TextView
-            android:id="@+id/year"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_toEndOf="@id/poster"/>
+            <ImageView
+                android:id="@+id/poster_content"
+                android:layout_width="75dp"
+                android:layout_height="117dp"
+                android:layout_alignParentStart="true"
+                android:layout_marginEnd="6dp"
+                android:adjustViewBounds="true"
+                android:contentDescription="@string/movie_poster"
+                android:scaleType="centerCrop"
+                />
+            <!--title-->
+            <TextView
+                android:id="@+id/title_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/title_detail"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/released"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/year"
-            android:layout_toEndOf="@id/poster"/>
+            <TextView
+                android:id="@+id/title_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toEndOf="@id/title_name"
+                android:textStyle="bold"/>
 
-        <TextView
-            android:id="@+id/runtime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/released"
-            android:layout_toEndOf="@id/poster"/>
+            <!--released-->
+            <TextView
+                android:id="@+id/released_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/released_detail"
+                android:textStyle="bold"
+                />
 
-        <TextView
-            android:id="@+id/genre"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/runtime"
-            android:layout_toEndOf="@id/poster"/>
+            <TextView
+                android:id="@+id/released_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/title_content"
+                android:layout_toEndOf="@id/released_name"/>
 
-        <TextView
-            android:id="@+id/director"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/genre"
-            android:layout_toEndOf="@id/poster"/>
+            <!--runtime-->
+            <TextView
+                android:id="@+id/runtime_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/released_name"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/runtime_detail"
+                android:textStyle="bold"
+                />
 
-        <TextView
-            android:id="@+id/writer"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/director"
-            />
+            <TextView
+                android:id="@+id/runtime_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/released_name"
+                android:layout_toEndOf="@id/runtime_name"/>
 
+            <!--genre-->
+            <TextView
+                android:id="@+id/genre_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/runtime_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/genre_detail"
+                android:textStyle="bold"
+                />
 
-        <TextView
-            android:id="@+id/actors"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/writer"
-            />
+            <TextView
+                android:id="@+id/genre_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/runtime_content"
+                android:layout_toEndOf="@id/genre_name"/>
 
-        <TextView
-            android:id="@+id/plot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/actors"
-            />
+            <!--director-->
+            <TextView
+                android:id="@+id/director_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genre_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/director_detail"
+                android:textStyle="bold"
+                />
 
+            <TextView
+                android:id="@+id/director_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/genre_name"
+                android:layout_toEndOf="@id/director_name"/>
+
+            <!--writer-->
+            <TextView
+                android:id="@+id/writer_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/director_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/writer_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/writer_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/director_content"
+                android:layout_toEndOf="@id/writer_name"
+                />
+
+            <!--actors-->
+            <TextView
+                android:id="@+id/actors_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/writer_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/actors_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/actors_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/writer_content"
+                android:layout_toEndOf="@id/actors_name"
+                />
+
+            <!--plot-->
+            <TextView
+                android:id="@+id/plot_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/actors_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/plot_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/plot_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/actors_content"
+                android:layout_toEndOf="@id/plot_name"
+                />
+
+            <!--language-->
+            <TextView
+                android:id="@+id/language_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plot_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/language_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/language_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/plot_content"
+                android:layout_toEndOf="@id/language_name"
+                />
+
+            <!--country-->
+            <TextView
+                android:id="@+id/country_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/language_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/country_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/country_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/language_content"
+                android:layout_toEndOf="@id/country_name"
+                />
+
+            <!--awards-->
+            <TextView
+                android:id="@+id/awards_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/country_content"
+                android:layout_toEndOf="@id/poster_content"
+                android:text="@string/awards_detail"
+                android:textStyle="bold"
+                />
+
+            <TextView
+                android:id="@+id/awards_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/country_content"
+                android:layout_toEndOf="@id/awards_name"
+                />
+
+        </RelativeLayout>
+
+    </ScrollView>
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

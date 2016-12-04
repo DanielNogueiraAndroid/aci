@@ -7,6 +7,8 @@ import com.squareup.okhttp.logging.HttpLoggingInterceptor;
 import com.aci.movie.BuildConfig;
 import com.aci.movie.omdb.OmdbApi;
 
+import java.util.concurrent.TimeUnit;
+
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -38,6 +40,8 @@ public class ApiModule {
     @Singleton
     OkHttpClient provideOkHttpClient() {
         OkHttpClient client = new OkHttpClient();
+        client.setConnectTimeout(10, TimeUnit.SECONDS);
+        client.setReadTimeout(30, TimeUnit.SECONDS);
         if (BuildConfig.DEBUG) {
             HttpLoggingInterceptor logging = new HttpLoggingInterceptor(System.out::println);
             logging.setLevel(HttpLoggingInterceptor.Level.BODY);

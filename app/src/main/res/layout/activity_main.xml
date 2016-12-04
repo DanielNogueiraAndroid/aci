@@ -31,31 +31,11 @@
                 android:layout_height="match_parent"
                 android:background="@null"
                 android:gravity="center_vertical"
-                android:hint="Movie Title"
+                android:hint="@string/movie_title"
                 android:imeOptions="actionDone|flagNoExtractUi"
                 android:singleLine="true"/>
 
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <com.aci.movie.ui.MoviesRecycler
-            android:id="@+id/movies_list"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:scrollbars="vertical" />
-
-        <TextView
-            android:id="@+id/empty_recycler"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="@string/empty_wishlist"
-            android:visibility="gone" />
-    </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>

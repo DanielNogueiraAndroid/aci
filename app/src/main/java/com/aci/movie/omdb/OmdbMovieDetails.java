@@ -32,6 +32,39 @@ public class OmdbMovieDetails extends OmdbMovie {
     @SerializedName("Plot")
     public String plot;
 
+    @SerializedName("Language")
+    public String language;
+
+    @SerializedName("Country")
+    public String country;
+
+    @SerializedName("Awards")
+    public String awards;
+
+    public String getLanguage() {
+        return language;
+    }
+
+    public void setLanguage(String language) {
+        this.language = language;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    public String getAwards() {
+        return awards;
+    }
+
+    public void setAwards(String awards) {
+        this.awards = awards;
+    }
+
     public String imdbRating;
 
     public String getRated() {
