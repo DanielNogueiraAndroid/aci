@@ -8,7 +8,6 @@ import android.widget.EditText;
 import android.widget.ListPopupWindow;
 import android.widget.Toast;
 
-import com.aci.movie.cache.OmdbMovieCache;
 import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbSearchMovies;
 import com.aci.movie.rxbinding.RxListPopupWindow;
@@ -29,6 +28,8 @@ import butterknife.Bind;
 import rx.Observable;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
+
+import static com.aci.movie.MovieDetailActivity.EXTRA_ID;
 
 public class MainActivity extends BaseActivity {
 
@@ -72,24 +73,31 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable e) {
-                Toast.makeText(
-                        MainActivity.this, " onError omdbMovie ",Toast.LENGTH_SHORT).show();
+                toast(getString(R.string.generic_error));
             }
 
             @Override
             public void onNext(OmdbMovie omdbMovie) {
-                Toast.makeText(
-                        MainActivity.this, "onNext omdbMovie "+ omdbMovie.getTitle(),Toast
-                        .LENGTH_SHORT).show();
-                calldetailActivity(omdbMovie);
+                logger.debug("onNext omdbMovie");
+                if(omdbMovie != null){
+                    toast(getString(R.string.loading_details)+ omdbMovie.getTitle());
+                    callDetailActivity(omdbMovie.getImdbId());
+                }
             }
         });
 
     }
 
-    private void calldetailActivity(OmdbMovie omdbMovie) {
-        OmdbMovieCache.getInstance().setOmdbMovie(omdbMovie);
+    private void toast(String text) {
+        Toast.makeText(
+                MainActivity.this, text,
+                Toast.LENGTH_SHORT).show();
+    }
+
+    private void callDetailActivity(String id) {
+
         Intent intentMovieDetail = new Intent(this, MovieDetailActivity.class);
+        intentMovieDetail.putExtra(EXTRA_ID,id);
         startActivity(intentMovieDetail);
     }
 

@@ -3,10 +3,7 @@ package com.aci.movie;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.aci.movie.cache.OmdbMovieCache;
-import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbMovieDetails;
 import com.aci.movie.service.MovieService;
 import com.bumptech.glide.Glide;
@@ -24,6 +21,7 @@ import rx.schedulers.Schedulers;
 
 public class MovieDetailActivity extends BaseActivity {
 
+    public static final String EXTRA_ID = "extra_id";
     private static final Logger logger = LoggerFactory.getLogger("MovieDetailActivity");
     @Inject
     MovieService movieService;
@@ -39,14 +37,15 @@ public class MovieDetailActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         MovieApplication.component(this).inject(this);
         setContentView(R.layout.activity_movie_detail);
-        OmdbMovie omdbMovie;
-        omdbMovie = OmdbMovieCache.getInstance().getOmdbMovie();
-        if (omdbMovie != null) {
-            Toast.makeText(
-                    MovieDetailActivity.this, "onCreate omdbMovie " + omdbMovie.getTitle(), Toast
-                            .LENGTH_LONG).show();
-            getDetails(omdbMovie);
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle == null) {
+            return;
         }
+        String id = bundle.getString(EXTRA_ID);
+        if (id == null) {
+            return;
+        }
+        getDetails(id);
     }
 
     @Override
@@ -54,8 +53,8 @@ public class MovieDetailActivity extends BaseActivity {
         super.onStart();
     }
 
-    void getDetails(OmdbMovie omdbMovie) {
-        movieService.getMovie(omdbMovie.getImdbId())
+    void getDetails(String id) {
+        movieService.getMovie(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new Subscriber<OmdbMovieDetails>() {

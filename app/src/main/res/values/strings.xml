@@ -4,4 +4,6 @@
     <string name="removed_from_wishlist">Removed!</string>
     <string name="undo_remove">Undo</string>
     <string name="movie_poster">movie_poster</string>
+    <string name="generic_error">Sorry please repeat operation</string>
+    <string name="loading_details">"Bringing details of "</string>
 </resources>
