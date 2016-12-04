@@ -38,10 +38,10 @@ public class OmbdApiTest {
     }
 
     @Test
-    public void getByTitle() {
+    public void getById() {
         TestSubscriber<OmdbMovieDetails> sub = new TestSubscriber<>();
 
-        api.getByTitle("Star Wars: Episode VII - The Force Awakens").compose(RxLog.insertLog()).subscribe(sub);
+        api.getById("tt0076759").compose(RxLog.insertLog()).subscribe(sub);
 
         sub.awaitTerminalEvent();
         sub.assertNoErrors();
@@ -53,10 +53,10 @@ public class OmbdApiTest {
 
 
     @Test
-    public void getByTitleNotFound() {
+    public void getByIdNotFound() {
         TestSubscriber<OmdbMovieDetails> sub = new TestSubscriber<>();
 
-        api.getByTitle("Star Wars: Episode XX").compose(RxLog.insertLog()).subscribe(sub);
+        api.getById("tt0076759astgasdf").compose(RxLog.insertLog()).subscribe(sub);
 
         sub.awaitTerminalEvent();
         sub.assertNoErrors();

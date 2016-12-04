@@ -1,6 +1,7 @@
 <resources>
-    <string name="app_name">MovieRx</string>
+    <string name="app_name">Movie</string>
     <string name="empty_wishlist">Empty!</string>
     <string name="removed_from_wishlist">Removed!</string>
     <string name="undo_remove">Undo</string>
+    <string name="movie_poster">movie_poster</string>
 </resources>

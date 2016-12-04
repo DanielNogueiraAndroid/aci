@@ -1,11 +1,8 @@
 package com.aci.movie.service;
 
-import com.squareup.sqlbrite.BriteDatabase;
-import com.aci.movie.db.MovieItem;
 import com.aci.movie.omdb.OmdbApi;
-import com.aci.movie.omdb.OmdbMovie;
+import com.aci.movie.omdb.OmdbMovieDetails;
 import com.aci.movie.omdb.OmdbSearchMovies;
-import com.aci.movie.service.transformer.OmdbMovieToDb;
 import com.aci.movie.util.RxLog;
 
 import javax.inject.Inject;
@@ -21,12 +18,10 @@ import rx.schedulers.Schedulers;
 public class MovieService {
 
     private OmdbApi api;
-    private BriteDatabase db;
 
     @Inject
-    public MovieService(OmdbApi api, BriteDatabase db) {
+    public MovieService(OmdbApi api) {
         this.api = api;
-        this.db = db;
     }
 
     public Observable<OmdbSearchMovies> searchMovie(String title) {
@@ -36,10 +31,10 @@ public class MovieService {
                 .subscribeOn(Schedulers.io());
     }
 
-    public Observable<Long> saveMovie(OmdbMovie item) {
-        return api.getByTitle(item.title)
-                .map(OmdbMovieToDb::buildMovieItemDb)
-                .map(cv -> db.insert(MovieItem.TABLE, cv))
+    public Observable<OmdbMovieDetails> getMovie(String id) {
+        return api.getById(id).compose(RxLog.insertLog())
+                .retry(3)
                 .subscribeOn(Schedulers.io());
     }
+
 }

@@ -12,7 +12,7 @@ import java.net.URI;
  *       Type:"movie",
  *       Poster:"http://ia.media-imdb.com/images/M/MV5BMTU4NTczODkwM15BMl5BanBnXkFtZTcwMzEyMTIyMw@@._V1_SX300.jpg"
  * }
-*/
+ */
 
 public class OmdbMovie extends OmdbResponse {
 
@@ -47,5 +47,45 @@ public class OmdbMovie extends OmdbResponse {
 
     public enum Type {
         movie, series, episode
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    public String getYear() {
+        return year;
+    }
+
+    public void setYear(String year) {
+        this.year = year;
+    }
+
+    public String getImdbId() {
+        return imdbId;
+    }
+
+    public void setImdbId(String imdbId) {
+        this.imdbId = imdbId;
+    }
+
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
+    public URI getPosterUri() {
+        return posterUri;
+    }
+
+    public void setPosterUri(URI posterUri) {
+        this.posterUri = posterUri;
     }
 }

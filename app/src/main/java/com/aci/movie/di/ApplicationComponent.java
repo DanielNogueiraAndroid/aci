@@ -1,8 +1,8 @@
 package com.aci.movie.di;
 
 import com.aci.movie.MainActivity;
+import com.aci.movie.MovieDetailActivity;
 import com.aci.movie.MoviePopupAdapter;
-import com.aci.movie.db.DbModule;
 
 import javax.inject.Singleton;
 
@@ -16,11 +16,13 @@ import dagger.Component;
 
 @Singleton
 @Component(
-        modules = {ApplicationModule.class, ApiModule.class, DbModule.class}
+        modules = {ApplicationModule.class, ApiModule.class}
 )
 public interface ApplicationComponent {
 
     void inject(MainActivity mainActivity);
+
+    void inject(MovieDetailActivity movieDetailActivityActivity);
 
     void inject(MoviePopupAdapter moviePopupAdapter);
 }

@@ -1,26 +1,22 @@
 package com.aci.movie;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.helper.ItemTouchHelper;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListPopupWindow;
+import android.widget.Toast;
 
-import com.jakewharton.rxbinding.support.design.widget.RxSnackbar;
-import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
-import com.jakewharton.rxbinding.widget.RxTextView;
-import com.squareup.sqlbrite.BriteDatabase;
-import com.aci.movie.db.MovieItem;
-import com.aci.movie.db.Util;
+import com.aci.movie.cache.OmdbMovieCache;
+import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbSearchMovies;
 import com.aci.movie.rxbinding.RxListPopupWindow;
 import com.aci.movie.service.MovieService;
-import com.aci.movie.ui.MoviesAdapter;
 import com.aci.movie.ui.MoviesRecycler;
 import com.aci.movie.util.RxLog;
+import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
+import com.jakewharton.rxbinding.widget.RxTextView;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -30,19 +26,15 @@ import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
 import butterknife.Bind;
-import jp.wasabeef.recyclerview.animators.OvershootInRightAnimator;
 import rx.Observable;
+import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
-import rx.schedulers.Schedulers;
 
 public class MainActivity extends BaseActivity {
 
     private static final Logger logger = LoggerFactory.getLogger("MainActivity");
     @Inject
     MovieService movieService;
-
-    @Inject
-    BriteDatabase db;
 
     @Bind(R.id.searchText)
     EditText searchText;
@@ -53,8 +45,7 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.empty_recycler)
     View emptyRecyclerView;
     ListPopupWindow popup;
-    private LinearLayoutManager cardListLayoutManager;
-    private MoviesAdapter moviesListAdapter;
+
     private MoviePopupAdapter adapter;
 
     @Override
@@ -69,73 +60,37 @@ public class MainActivity extends BaseActivity {
 
         popup.setAdapter(adapter);
 
-        moviesListAdapter = new MoviesAdapter(this);
-        cardListLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
-        moviesRecycler.setLayoutManager(cardListLayoutManager);
-        moviesRecycler.setEmptyView(emptyRecyclerView);
-        moviesRecycler.setAdapter(moviesListAdapter);
-        moviesRecycler.setItemAnimator(new OvershootInRightAnimator());
-
-
         RxListPopupWindow.itemClickEvents(popup)
                 .map(AdapterViewItemClickEvent::position)
                 .map(adapter::getItem)
                 .onBackpressureDrop(item -> RxLog.log("drop", item))
-                .flatMap(movieService::saveMovie, 1)
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        savedId -> {
-                            popup.dismiss();
-                            moviesRecycler.smoothScrollToPosition(moviesListAdapter.getItemCount());
-                        },
-                        throwable ->
-                                Snackbar.make(searchText, throwable.toString(), Snackbar.LENGTH_LONG).show()
-                );
-
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT|ItemTouchHelper.RIGHT) {
-
+                .subscribe(new Subscriber<OmdbMovie>() {
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
-                return false;
+            public void onCompleted() {
+
             }
 
             @Override
-            public void onSwiped(RecyclerView.ViewHolder viewHolder, int swipeDir) {
-
-                final int position = viewHolder.getAdapterPosition();
-                final MovieItem item = moviesListAdapter.getItemAt(position);
-
-                final Snackbar snackBar = Snackbar.make(moviesRecycler, R.string.removed_from_wishlist, Snackbar.LENGTH_SHORT);
-                snackBar.setAction(R.string.undo_remove, (view) -> {});
-                snackBar.show();
-
-                final BriteDatabase.Transaction transaction = db.newTransaction();
-                db.delete(MovieItem.TABLE, MovieItem.ID + " = ?", item.id() + "");
-                moviesListAdapter.removeItemAt(position);
-
-                RxSnackbar.dismisses(snackBar)
-                        .firstOrDefault(0)
-                        .subscribe(
-                                eventId -> {
-                                    if (eventId == Snackbar.Callback.DISMISS_EVENT_ACTION) {
-                                        logger.debug("Undoing ...");
-                                        moviesListAdapter.insertItemAt(item, position);
-                                    } else {
-                                        logger.debug("Deleting ...");
-                                        transaction.markSuccessful();
-                                    }
-                                },
-                                throwable -> logger.error(throwable.getMessage()),
-                                () -> {
-                                    logger.debug("Closing transaction");
-                                    transaction.end();
-                                }
-                        );
+            public void onError(Throwable e) {
+                Toast.makeText(
+                        MainActivity.this, " onError omdbMovie ",Toast.LENGTH_SHORT).show();
             }
-        };
 
-        ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleItemTouchCallback);
-        itemTouchHelper.attachToRecyclerView(moviesRecycler);
+            @Override
+            public void onNext(OmdbMovie omdbMovie) {
+                Toast.makeText(
+                        MainActivity.this, "onNext omdbMovie "+ omdbMovie.getTitle(),Toast
+                        .LENGTH_SHORT).show();
+                calldetailActivity(omdbMovie);
+            }
+        });
+
+    }
+
+    private void calldetailActivity(OmdbMovie omdbMovie) {
+        OmdbMovieCache.getInstance().setOmdbMovie(omdbMovie);
+        Intent intentMovieDetail = new Intent(this, MovieDetailActivity.class);
+        startActivity(intentMovieDetail);
     }
 
     @Override
@@ -152,15 +107,9 @@ public class MainActivity extends BaseActivity {
                 .compose(bindToLifecycle())
                 .subscribe(this::setMovies, this::handleError);
 
-
         searchObs.filter(charSequence -> charSequence.length() <= 1)
                 .subscribe(charSequence -> popup.dismiss());
 
-        db.createQuery(MovieItem.TABLE, Util.MOVIES_IN_WISHLIST_QUERY, "1")
-                .mapToList(MovieItem.MAPPER)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(moviesListAdapter);
     }
 
     private void handleError(Throwable throwable) {

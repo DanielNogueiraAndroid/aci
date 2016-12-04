@@ -9,8 +9,8 @@ import rx.Observable;
  */
 public interface OmdbApi {
 
-    @GET("/?plot=full&tomatoes=true")
-    Observable<OmdbMovieDetails> getByTitle(@Query(value = "t", encoded = true) String title);
+    @GET("/?plot=full")
+    Observable<OmdbMovieDetails> getById(@Query(value = "i", encoded = true) String id);
 
     @GET("/")
     Observable<OmdbSearchMovies> searchByTitle(@Query(value = "s", encoded = true) String title);
