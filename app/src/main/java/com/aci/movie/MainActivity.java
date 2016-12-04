@@ -127,9 +127,11 @@ public class MainActivity extends BaseActivity {
     }
 
     void setMovies(OmdbSearchMovies movies) {
+        if(popup == null) return;
         if (movies.errorMessage == null) {
+            if(adapter != null){
             adapter.setMovieList(movies.movies);
-            popup.show();
+            popup.show();}
         } else {
             popup.dismiss();
             Snackbar.make(searchText, movies.errorMessage, Snackbar.LENGTH_LONG).show();

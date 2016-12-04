@@ -29,8 +29,22 @@ public class MovieDetailActivity extends BaseActivity {
     ImageView posterView;
     @Bind(R.id.title)
     TextView titleView;
+    @Bind(R.id.year)
+    TextView yearView;
+    @Bind(R.id.released)
+    TextView releasedView;
+    @Bind(R.id.runtime)
+    TextView runtimeView;
+    @Bind(R.id.genre)
+    TextView genreView;
+    @Bind(R.id.director)
+    TextView directorView;
+    @Bind(R.id.writer)
+    TextView writerView;
     @Bind(R.id.actors)
     TextView actorsView;
+    @Bind(R.id.plot)
+    TextView plotView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,7 +91,14 @@ public class MovieDetailActivity extends BaseActivity {
 
     void showMovie(OmdbMovieDetails omdbMovieDetails) {
         titleView.setText(omdbMovieDetails.getTitle());
+        yearView.setText(omdbMovieDetails.getYear());
+        releasedView.setText(omdbMovieDetails.getReleased());
+        runtimeView.setText(omdbMovieDetails.getRuntime());
+        genreView.setText(omdbMovieDetails.getGenre());
+        directorView.setText(omdbMovieDetails.getDirector());
+        writerView.setText(omdbMovieDetails.getWriter());
         actorsView.setText(omdbMovieDetails.getActors());
+        plotView.setText(omdbMovieDetails.getPlot());
 
         Glide.with(MovieDetailActivity.this)
                 .load(omdbMovieDetails.getPosterUri().toString())

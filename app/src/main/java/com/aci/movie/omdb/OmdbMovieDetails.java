@@ -11,8 +11,14 @@ public class OmdbMovieDetails extends OmdbMovie {
     @SerializedName("Rated")
     public String rated;
 
+    @SerializedName("Released")
+    public String released;
+
     @SerializedName("Runtime")
     public String runtime;
+
+    @SerializedName("Genre")
+    public String genre;
 
     @SerializedName("Director")
     public String director;
@@ -76,15 +82,42 @@ public class OmdbMovieDetails extends OmdbMovie {
         this.imdbRating = imdbRating;
     }
 
+    public String getReleased() {
+        return released;
+    }
+
+    public void setReleased(String released) {
+        this.released = released;
+    }
+
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
+
+    public String getPlot() {
+        return plot;
+    }
+
+    public void setPlot(String plot) {
+        this.plot = plot;
+    }
+
     @Override
     public String toString() {
         return "OmdbMovieDetails{" +
-                "actors='" + actors + '\'' +
-                ", rated='" + rated + '\'' +
+                "rated='" + rated + '\'' +
+                ", released='" + released + '\'' +
                 ", runtime='" + runtime + '\'' +
+                ", genre='" + genre + '\'' +
                 ", director='" + director + '\'' +
                 ", writer='" + writer + '\'' +
+                ", actors='" + actors + '\'' +
                 ", plot='" + plot + '\'' +
-                "} " + super.toString();
+                ", imdbRating='" + imdbRating + '\'' +
+                '}'+ super.toString();
     }
 }

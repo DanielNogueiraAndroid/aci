@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.design.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -17,26 +17,77 @@
             android:id="@+id/poster"
             android:layout_width="75dp"
             android:layout_height="117dp"
-            android:layout_alignParentLeft="true"
-            android:layout_marginRight="6dp"
+            android:layout_alignParentStart="true"
+            android:layout_marginEnd="6dp"
             android:adjustViewBounds="true"
-            android:scaleType="centerCrop"
             android:contentDescription="@string/movie_poster"
+            android:scaleType="centerCrop"
             />
 
         <TextView
             android:id="@+id/title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/poster"
-            android:textStyle="bold" />
+            android:layout_toEndOf="@id/poster"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/year"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/title"
+            android:layout_toEndOf="@id/poster"/>
+
+        <TextView
+            android:id="@+id/released"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/year"
+            android:layout_toEndOf="@id/poster"/>
+
+        <TextView
+            android:id="@+id/runtime"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/released"
+            android:layout_toEndOf="@id/poster"/>
+
+        <TextView
+            android:id="@+id/genre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/runtime"
+            android:layout_toEndOf="@id/poster"/>
+
+        <TextView
+            android:id="@+id/director"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/genre"
+            android:layout_toEndOf="@id/poster"/>
+
+        <TextView
+            android:id="@+id/writer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/director"
+            />
+
 
         <TextView
             android:id="@+id/actors"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/title"
-            android:layout_toRightOf="@id/poster" />
+            android:layout_below="@id/writer"
+            />
+
+        <TextView
+            android:id="@+id/plot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/actors"
+            />
+
 
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
