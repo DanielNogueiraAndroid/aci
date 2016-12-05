@@ -3,6 +3,7 @@ package com.aci.movie.rxbinding;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListPopupWindow;
+import android.widget.ListView;
 
 import com.jakewharton.rxbinding.internal.MainThreadSubscription;
 import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
@@ -16,11 +17,11 @@ import static com.jakewharton.rxbinding.internal.Preconditions.checkUiThread;
  * Created by ciprian.grigor on 13/11/15.
  */
 
-final class ListPopupWindowItemClickEventOnSubscribe
+final class ListItemClickEventOnSubscribe
         implements Observable.OnSubscribe<AdapterViewItemClickEvent> {
-    private final ListPopupWindow list;
+    private final ListView list;
 
-    public ListPopupWindowItemClickEventOnSubscribe(ListPopupWindow list) {
+    public ListItemClickEventOnSubscribe(ListView list) {
         this.list = list;
     }
 

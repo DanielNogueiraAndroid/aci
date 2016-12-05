@@ -2,14 +2,13 @@ package com.aci.movie;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.Snackbar;
 import android.widget.EditText;
-import android.widget.ListPopupWindow;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbSearchMovies;
-import com.aci.movie.rxbinding.RxListPopupWindow;
+import com.aci.movie.rxbinding.RxList;
 import com.aci.movie.service.MovieService;
 import com.aci.movie.util.RxLog;
 import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
@@ -38,23 +37,21 @@ public class MainActivity extends BaseActivity {
     @Bind(R.id.searchText)
     EditText searchText;
 
-    ListPopupWindow popup;
+    @Bind(R.id.list_view)
+    ListView listView;
 
-    private MoviePopupAdapter adapter;
+    private MovieAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         MovieApplication.component(this).inject(this);
         setContentView(R.layout.activity_main);
-        popup = new ListPopupWindow(this);
-        popup.setAnchorView(toolbar);
 
-        adapter = new MoviePopupAdapter(this);
+        adapter = new MovieAdapter(this);
+        listView.setAdapter(adapter);
 
-        popup.setAdapter(adapter);
-
-        RxListPopupWindow.itemClickEvents(popup)
+        RxList.itemClickEvents(listView)
                 .map(AdapterViewItemClickEvent::position)
                 .map(adapter::getItem)
                 .onBackpressureDrop(item -> RxLog.log("drop", item))
@@ -66,7 +63,7 @@ public class MainActivity extends BaseActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        logger.error("onError itemClickEvents",e);
+                        logger.error("onError itemClickEvents", e);
                         toast(getString(R.string.generic_error));
                     }
 
@@ -110,7 +107,7 @@ public class MainActivity extends BaseActivity {
                 .subscribe(this::setMovies, this::handleError);
 
         searchObs.filter(charSequence -> charSequence.length() <= 1)
-                .subscribe(charSequence -> popup.dismiss());
+                .subscribe(charSequence -> adapter.clear());
 
     }
 
@@ -120,14 +117,13 @@ public class MainActivity extends BaseActivity {
     }
 
     void setMovies(OmdbSearchMovies movies) {
-        if (popup == null) return;
+        if (listView == null) return;
         if (movies.errorMessage == null) {
             if (adapter != null) {
                 adapter.setMovieList(movies.movies);
-                popup.show();
             }
         } else {
-            popup.dismiss();
+            adapter.clear();
             toast(movies.errorMessage);
         }
     }

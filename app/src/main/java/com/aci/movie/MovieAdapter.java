@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.aci.movie.omdb.OmdbApi;
 import com.aci.movie.omdb.OmdbMovie;
 
 import org.slf4j.Logger;
@@ -15,21 +14,18 @@ import org.slf4j.LoggerFactory;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 /**
  * Created by ciprian.grigor on 04/11/15.
  */
-public class MoviePopupAdapter extends BaseAdapter {
+public class MovieAdapter extends BaseAdapter {
 
-    private static final Logger logger = LoggerFactory.getLogger("MoviePopupAdapter");
+    private static final Logger logger = LoggerFactory.getLogger("MovieAdapter");
     private final LayoutInflater inflater;
 
     List<OmdbMovie> data;
 
-    public MoviePopupAdapter(Context context) {
+    public MovieAdapter(Context context) {
         super();
-        MovieApplication.component(context).inject(this);
         inflater = LayoutInflater.from(context);
     }
 
@@ -66,5 +62,12 @@ public class MoviePopupAdapter extends BaseAdapter {
     public void setMovieList(List<OmdbMovie> movieList) {
         data = movieList;
         this.notifyDataSetChanged();
+    }
+
+    public void clear() {
+        if (data != null) {
+            data.clear();
+            this.notifyDataSetChanged();
+        }
     }
 }

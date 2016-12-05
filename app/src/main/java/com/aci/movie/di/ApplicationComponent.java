@@ -2,7 +2,7 @@ package com.aci.movie.di;
 
 import com.aci.movie.MainActivity;
 import com.aci.movie.MovieDetailActivity;
-import com.aci.movie.MoviePopupAdapter;
+import com.aci.movie.MovieAdapter;
 
 import javax.inject.Singleton;
 
@@ -24,5 +24,5 @@ public interface ApplicationComponent {
 
     void inject(MovieDetailActivity movieDetailActivityActivity);
 
-    void inject(MoviePopupAdapter moviePopupAdapter);
+    void inject(MovieAdapter moviePopupAdapter);
 }

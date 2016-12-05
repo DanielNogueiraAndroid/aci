@@ -2,7 +2,7 @@ package com.aci.movie.rxbinding;
 
 import android.support.annotation.CheckResult;
 import android.support.annotation.NonNull;
-import android.widget.ListPopupWindow;
+import android.widget.ListView;
 
 import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
 
@@ -11,7 +11,7 @@ import rx.Observable;
 /**
  * Created by ciprian.grigor on 13/11/15.
  */
-public class RxListPopupWindow {
+public class RxList {
 
     /**
      * Create an observable of item click events on {@code view}.
@@ -21,7 +21,7 @@ public class RxListPopupWindow {
      */
     @CheckResult
     @NonNull
-    public static Observable<AdapterViewItemClickEvent> itemClickEvents(@NonNull ListPopupWindow list) {
-        return Observable.create(new ListPopupWindowItemClickEventOnSubscribe(list));
+    public static Observable<AdapterViewItemClickEvent> itemClickEvents(@NonNull ListView list) {
+        return Observable.create(new ListItemClickEventOnSubscribe(list));
     }
 }
