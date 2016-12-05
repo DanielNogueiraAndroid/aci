@@ -29,50 +29,50 @@ public class MovieDetailActivity extends BaseActivity {
     public static final String EXTRA_ID = "extra_id";
     private static final Logger logger = LoggerFactory.getLogger("MovieDetailActivity");
     @Inject
-    private
+    public
     MovieService movieService;
 
     @Bind(R.id.proggres_bar)
-    private
+    public
     ProgressBar progressBarView;
     @Bind(R.id.scroll_view)
-    private
+    public
     ScrollView scrollView;
     @Bind(R.id.poster_content)
-    private
+    public
     ImageView posterView;
     @Bind(R.id.title_content)
-    private
+    public
     TextView titleView;
     @Bind(R.id.released_content)
-    private
+    public
     TextView releasedView;
     @Bind(R.id.runtime_content)
-    private
+    public
     TextView runtimeView;
     @Bind(R.id.genre_content)
-    private
+    public
     TextView genreView;
     @Bind(R.id.director_content)
-    private
+    public
     TextView directorView;
     @Bind(R.id.writer_content)
-    private
+    public
     TextView writerView;
     @Bind(R.id.actors_content)
-    private
+    public
     TextView actorsView;
     @Bind(R.id.plot_content)
-    private
+    public
     TextView plotView;
     @Bind(R.id.language_content)
-    private
+    public
     TextView languageView;
     @Bind(R.id.country_content)
-    private
+    public
     TextView countryView;
     @Bind(R.id.awards_content)
-    private
+    public
     TextView awardsView;
     private int retry = 0;
 

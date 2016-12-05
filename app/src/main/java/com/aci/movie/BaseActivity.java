@@ -19,7 +19,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Bind(R.id.toolbar)
     @Nullable
-    private
+    public
     Toolbar toolbar;
 
     @Override

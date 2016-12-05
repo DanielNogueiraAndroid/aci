@@ -35,15 +35,15 @@ public class MainActivity extends BaseActivity {
 
     private static final Logger logger = LoggerFactory.getLogger("MainActivity");
     @Inject
-    private
+    public
     MovieService movieService;
 
     @Bind(R.id.searchText)
-    private
+    public
     EditText searchText;
 
     @Bind(R.id.list_view)
-    private
+    public
     ListView listView;
 
     private MovieAdapter adapter;
