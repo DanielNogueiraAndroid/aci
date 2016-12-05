@@ -17,7 +17,7 @@ import org.slf4j.LoggerFactory;
  */
 public class MovieApplication extends Application {
 
-    private static Logger logger = LoggerFactory.getLogger("MovieApplication");
+    private static final Logger logger = LoggerFactory.getLogger("MovieApplication");
 
     private ApplicationComponent component;
 

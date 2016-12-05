@@ -21,7 +21,7 @@ import retrofit.RxJavaCallAdapterFactory;
  * Created by ciprian.grigor on 08/11/15.
  */
 @Module
-public class ApiModule {
+class ApiModule {
 
     @Provides
     @Singleton

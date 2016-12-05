@@ -9,37 +9,37 @@ import com.google.gson.annotations.SerializedName;
 public class OmdbMovieDetails extends OmdbMovie {
 
     @SerializedName("Rated")
-    public String rated;
+    private String rated;
 
     @SerializedName("Released")
-    public String released;
+    private String released;
 
     @SerializedName("Runtime")
-    public String runtime;
+    private String runtime;
 
     @SerializedName("Genre")
-    public String genre;
+    private String genre;
 
     @SerializedName("Director")
-    public String director;
+    private String director;
 
     @SerializedName("Writer")
-    public String writer;
+    private String writer;
 
     @SerializedName("Actors")
-    public String actors;
+    private String actors;
 
     @SerializedName("Plot")
-    public String plot;
+    private String plot;
 
     @SerializedName("Language")
-    public String language;
+    private String language;
 
     @SerializedName("Country")
-    public String country;
+    private String country;
 
     @SerializedName("Awards")
-    public String awards;
+    private String awards;
 
     public String getLanguage() {
         return language;
@@ -65,7 +65,7 @@ public class OmdbMovieDetails extends OmdbMovie {
         this.awards = awards;
     }
 
-    public String imdbRating;
+    private String imdbRating;
 
     public String getRated() {
         return rated;

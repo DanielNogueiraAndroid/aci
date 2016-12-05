@@ -17,7 +17,7 @@ import rx.schedulers.Schedulers;
  * Created by ciprian.grigor on 10/11/15.
  */
 public class SearchTest {
-    OmdbApi api;
+    private OmdbApi api;
 
     @Before
     public void setUp() {

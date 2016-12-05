@@ -20,18 +20,18 @@ public class OmdbMovie extends OmdbResponse {
     public String title;
 
     @SerializedName("Year")
-    public String year;
+    private String year;
 
     @SerializedName("imdbID")
     public String imdbId;
 
     @SerializedName("Type")
-    public Type type;
+    private Type type;
 
     @SerializedName("Poster")
-    public URI posterUri;
+    private URI posterUri;
 
-    public OmdbMovie() {
+    OmdbMovie() {
     }
 
     public OmdbMovie(String title) {

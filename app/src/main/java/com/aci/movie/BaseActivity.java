@@ -19,6 +19,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
 
     @Bind(R.id.toolbar)
     @Nullable
+    private
     Toolbar toolbar;
 
     @Override
@@ -39,7 +40,7 @@ public abstract class BaseActivity extends RxAppCompatActivity {
         bindViews();
     }
 
-    protected void bindViews() {
+    private void bindViews() {
         ButterKnife.bind(this);
         if (toolbar != null) {
             setSupportActionBar(toolbar);

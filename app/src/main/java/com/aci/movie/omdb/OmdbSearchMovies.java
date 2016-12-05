@@ -16,7 +16,7 @@ import java.util.List;
 public class OmdbSearchMovies extends OmdbResponse {
 
     @SerializedName("Search")
-    public List<OmdbMovie> movies = Collections.emptyList();
+    public final List<OmdbMovie> movies = Collections.emptyList();
 
     public OmdbSearchMovies(Throwable throwable) {
         errorMessage = throwable.toString();

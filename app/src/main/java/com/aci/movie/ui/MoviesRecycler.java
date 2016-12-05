@@ -39,7 +39,7 @@ public class MoviesRecycler extends RecyclerView {
         this.emptyView = emptyView;
     }
 
-    private AdapterDataObserver emptyObserver = new AdapterDataObserver() {
+    private final AdapterDataObserver emptyObserver = new AdapterDataObserver() {
 
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount) {

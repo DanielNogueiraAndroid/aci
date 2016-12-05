@@ -3,6 +3,7 @@ package com.aci.movie.service;
 import com.aci.movie.omdb.OmdbApi;
 import com.aci.movie.omdb.OmdbMovieDetails;
 import com.aci.movie.omdb.OmdbSearchMovies;
+import com.aci.movie.util.EspressoIdlingResource;
 import com.aci.movie.util.RxLog;
 
 import javax.inject.Inject;
@@ -17,7 +18,7 @@ import rx.schedulers.Schedulers;
 @Singleton
 public class MovieService {
 
-    private OmdbApi api;
+    private final OmdbApi api;
 
     @Inject
     public MovieService(OmdbApi api) {
@@ -25,6 +26,7 @@ public class MovieService {
     }
 
     public Observable<OmdbSearchMovies> searchMovie(String title) {
+        EspressoIdlingResource.increment();
         return api.searchByTitle(title.replaceAll("\\s+$", "")).compose(RxLog.insertLog())
                 .retry(3)
                 .onErrorReturn(OmdbSearchMovies::new)

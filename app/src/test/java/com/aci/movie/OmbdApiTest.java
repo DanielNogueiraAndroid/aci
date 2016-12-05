@@ -16,7 +16,7 @@ import rx.observers.TestSubscriber;
  */
 public class OmbdApiTest {
 
-    OmdbApi api;
+    private OmdbApi api;
 
     @Before
     public void setUp() {

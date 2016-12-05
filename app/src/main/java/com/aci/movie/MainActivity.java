@@ -2,6 +2,8 @@ package com.aci.movie;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.VisibleForTesting;
+import android.support.test.espresso.IdlingResource;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -10,6 +12,7 @@ import com.aci.movie.omdb.OmdbMovie;
 import com.aci.movie.omdb.OmdbSearchMovies;
 import com.aci.movie.rxbinding.RxList;
 import com.aci.movie.service.MovieService;
+import com.aci.movie.util.EspressoIdlingResource;
 import com.aci.movie.util.RxLog;
 import com.jakewharton.rxbinding.widget.AdapterViewItemClickEvent;
 import com.jakewharton.rxbinding.widget.RxTextView;
@@ -32,12 +35,15 @@ public class MainActivity extends BaseActivity {
 
     private static final Logger logger = LoggerFactory.getLogger("MainActivity");
     @Inject
+    private
     MovieService movieService;
 
     @Bind(R.id.searchText)
+    private
     EditText searchText;
 
     @Bind(R.id.list_view)
+    private
     ListView listView;
 
     private MovieAdapter adapter;
@@ -79,6 +85,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
+
     private void toast(String text) {
         Toast.makeText(
                 MainActivity.this, text,
@@ -116,15 +123,22 @@ public class MainActivity extends BaseActivity {
         toast(throwable.toString());
     }
 
-    void setMovies(OmdbSearchMovies movies) {
+    private void setMovies(OmdbSearchMovies movies) {
+        EspressoIdlingResource.decrement();
         if (listView == null) return;
         if (movies.errorMessage == null) {
             if (adapter != null) {
                 adapter.setMovieList(movies.movies);
+
             }
         } else {
             adapter.clear();
             toast(movies.errorMessage);
         }
+    }
+
+    @VisibleForTesting
+    public IdlingResource getCountingIdlingResource() {
+        return EspressoIdlingResource.getIdlingResource();
     }
 }

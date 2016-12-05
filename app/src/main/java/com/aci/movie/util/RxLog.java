@@ -20,7 +20,7 @@ public class RxLog {
                 + "\t" + item);
     }
 
-    public static void log(Object source, Throwable throwable) {
+    private static void log(Object source, Throwable throwable) {
         System.out.println(DateFormat.getTimeInstance().format(new Date(System.currentTimeMillis()))
                 + "\t" + source
                 + "\t" + Thread.currentThread().getName()

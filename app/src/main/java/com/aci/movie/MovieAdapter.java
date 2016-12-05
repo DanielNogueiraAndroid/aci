@@ -22,7 +22,7 @@ public class MovieAdapter extends BaseAdapter {
     private static final Logger logger = LoggerFactory.getLogger("MovieAdapter");
     private final LayoutInflater inflater;
 
-    List<OmdbMovie> data;
+    private List<OmdbMovie> data;
 
     public MovieAdapter(Context context) {
         super();
