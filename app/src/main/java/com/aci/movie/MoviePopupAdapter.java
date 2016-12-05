@@ -25,9 +25,6 @@ public class MoviePopupAdapter extends BaseAdapter {
     private static final Logger logger = LoggerFactory.getLogger("MoviePopupAdapter");
     private final LayoutInflater inflater;
 
-    @Inject
-    OmdbApi api;
-
     List<OmdbMovie> data;
 
     public MoviePopupAdapter(Context context) {
