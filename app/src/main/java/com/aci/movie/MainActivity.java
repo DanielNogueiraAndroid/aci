@@ -61,17 +61,18 @@ public class MainActivity extends BaseActivity {
                 .subscribe(new Subscriber<OmdbMovie>() {
                     @Override
                     public void onCompleted() {
-
+                        logger.debug("onCompleted itemClickEvents");
                     }
 
                     @Override
                     public void onError(Throwable e) {
+                        logger.error("onError itemClickEvents",e);
                         toast(getString(R.string.generic_error));
                     }
 
                     @Override
                     public void onNext(OmdbMovie omdbMovie) {
-                        logger.debug("onNext omdbMovie");
+                        logger.debug("onNext itemClickEvents");
                         if (omdbMovie != null) {
                             //toast(getString(R.string.loading_details) + omdbMovie.getTitle());
                             callDetailActivity(omdbMovie.getImdbId());
@@ -100,7 +101,7 @@ public class MainActivity extends BaseActivity {
 
         Observable<CharSequence> searchObs = RxTextView.textChanges(searchText);
 
-        searchObs.debounce(250, TimeUnit.MILLISECONDS)
+        searchObs.debounce(550, TimeUnit.MILLISECONDS)
                 .filter(charSequence -> charSequence.length() > 1)
                 .map(CharSequence::toString)
                 .switchMap(movieService::searchMovie)
@@ -115,8 +116,7 @@ public class MainActivity extends BaseActivity {
 
     private void handleError(Throwable throwable) {
         logger.error("searching error", throwable);
-        Snackbar.make(searchText, throwable.toString(), Snackbar.LENGTH_LONG).show();
-
+        toast(throwable.toString());
     }
 
     void setMovies(OmdbSearchMovies movies) {
@@ -128,7 +128,7 @@ public class MainActivity extends BaseActivity {
             }
         } else {
             popup.dismiss();
-            Snackbar.make(searchText, movies.errorMessage, Snackbar.LENGTH_LONG).show();
+            toast(movies.errorMessage);
         }
     }
 }
