@@ -85,6 +85,7 @@ final class SimpleCountingIdlingResource implements IdlingResource {
             if (null != resourceCallback) {
                 resourceCallback.onTransitionToIdle();
             }
+            
         }
 
         if (counterVal < 0) {
